@@ -1,0 +1,79 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Datasets
+# Usually do not upload datasets to GitHub
+data/
+datasets/
+raw_data/
+processed_data/
+
+# Model checkpoints and trained models
+# Usually too large for GitHub
+saved_models/
+checkpoints/
+*.pt
+*.pth
+*.ckpt
+*.bin
+*.safetensors
+*.onnx
+
+# Hugging Face / Transformers cache
+.cache/
+huggingface/
+hf_cache/
+transformers_cache/
+
+# Training outputs
+runs/
+wandb/
+mlruns/
+tensorboard/
+lightning_logs/
+
+# Results and experiment outputs
+# Uncomment results/ if it becomes too large
+# results/
+#outputs/
+logs/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Package/build files
+build/
+dist/
+*.egg-info/
+
+# Large compressed files
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+oral_defense_notes.md
