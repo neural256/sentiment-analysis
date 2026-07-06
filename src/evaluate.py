@@ -60,8 +60,7 @@ def evaluate_on_test_set(
 
     accuracy = accuracy_score(y_true, y_pred)
 
-    macro_precision, macro_recall, macro_f1, _ = precision_recall_fscore_support(
-        y_true,
+    macro_precision, macro_recall, macro_f1, _ = precision_recall_fscore_support(y_true,
         y_pred,
         average="macro",
         zero_division=0,
@@ -89,6 +88,5 @@ def evaluate_on_test_set(
 
 def save_test_report(metrics, output_path: Path):
     output_path.parent.mkdir(parents=True, exist_ok=True)
-
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(metrics, f, indent=4)

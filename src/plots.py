@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def plot_training_history(history, loss_plot_path: Path, accuracy_plot_path: Path):
+def plot_training_history(history, loss_plot_path: Path, accuracy_plot_path: Path, f1_plot_path: Path):
     epochs = range(1, len(history["train_loss"]) + 1)
 
     plt.figure(figsize=(8, 5))
@@ -33,10 +33,22 @@ def plot_training_history(history, loss_plot_path: Path, accuracy_plot_path: Pat
     plt.savefig(accuracy_plot_path, dpi=300)
     plt.close()
 
+    plt.figure(figsize=(8, 5))
+    plt.plot(epochs, history["train_macro_f1"], marker="o", label="Training macro-F1")
+    plt.plot(epochs, history["val_macro_f1"], marker="o", label="Validation macro-F1")
+    plt.xlabel("Epoch")
+    plt.ylabel("Macro-F1")
+    plt.title("Training vs Validation Macro-F1")
+    plt.legend()
+    plt.grid(True)
+    f1_plot_path.parent.mkdir(parents=True, exist_ok=True)
+    plt.tight_layout()
+    plt.savefig(f1_plot_path, dpi=300)
+    plt.close()
+
 
 def plot_confusion_matrix(confusion_matrix_array, class_names, output_path: Path):
     cm = np.asarray(confusion_matrix_array)
-
     plt.figure(figsize=(7, 6))
     plt.imshow(cm, interpolation="nearest")
     plt.title("Confusion Matrix")

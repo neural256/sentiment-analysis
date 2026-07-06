@@ -7,7 +7,7 @@ from torch.utils.data import DataLoader
 from src.config import Config
 from src.dataset import TweetSentimentDataset
 from src.evaluate import evaluate_on_test_set, save_test_report
-from src.load_data import load_airline_tweets_from_kaggle
+from src.load_data import load_airline_tweets_from_kaggle, load_airline_tweets_from_openml
 from src.model import TransformerSentimentClassifier
 from src.plots import plot_confusion_matrix, plot_training_history
 from src.preprocess import Vocabulary, clean_text, texts_to_padded_ids, tokenize
@@ -19,15 +19,11 @@ def main():
     config = Config()
     create_directories(config)
     set_seed(config.random_seed)
-
     print("=" * 80)
     print("AIRLINE TWEETS SENTIMENT ANALYSIS USING TRANSFORMER ENCODER")
     print("=" * 80)
 
-    df = load_airline_tweets_from_kaggle(
-        dataset_name=config.kaggle_dataset_name,
-        raw_output_path=config.raw_data_path,
-    )
+    df = load_airline_tweets_from_openml(config.openml_data_path)
 
     print("\nDataset preview:")
     print(df.head())
@@ -166,6 +162,7 @@ def main():
         num_epochs=config.num_epochs,
         grad_clip=config.grad_clip,
         best_model_path=config.best_model_path,
+        patience=config.patience,
     )
 
     model.load_state_dict(torch.load(config.best_model_path, map_location=device))
@@ -196,6 +193,7 @@ def main():
         history,
         loss_plot_path=config.loss_plot_path,
         accuracy_plot_path=config.accuracy_plot_path,
+        f1_plot_path=config.f1_plot_path,
     )
 
     plot_confusion_matrix(
@@ -208,6 +206,7 @@ def main():
     print(f"Best model:       {config.best_model_path}")
     print(f"Loss plot:        {config.loss_plot_path}")
     print(f"Accuracy plot:    {config.accuracy_plot_path}")
+    print(f"F1 plot:          {config.f1_plot_path}")
     print(f"Confusion matrix: {config.confusion_matrix_plot_path}")
     print(f"Test metrics:     {config.test_metrics_path}")
 

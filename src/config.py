@@ -17,21 +17,30 @@ class Config:
     embedding_dim: int = 128
     num_attention_heads: int = 4
     num_encoder_layers: int = 2
-    feedforward_dim: int = 256
+    feedforward_dim: int = 128
     dropout: float = 0.3
 
     batch_size: int = 32
-    learning_rate: float = 1e-3
+    learning_rate: float = 1e-4
     weight_decay: float = 1e-5
-    num_epochs: int = 25
+    num_epochs: int = 100
     grad_clip: float = 1.0
     use_weighted_loss: bool = True
+    patience: int = 20
 
     project_root: Path = Path(__file__).resolve().parents[1]
 
     @property
-    def raw_data_path(self) -> Path:
-        return self.project_root / "data" / "raw" / "kaggle_airline_tweets.csv"
+    def raw_data_dir(self) -> Path:
+        return self.project_root / "data" / "raw"
+
+    @property
+    def openml_data_path(self) -> Path:
+        return self.project_root / "data" / "raw" / "dataset_openml"
+
+    @property
+    def processed_data_path(self) -> Path:
+        return self.project_root / "data" / "processed" / "airline_tweets_clean.csv"
 
     @property
     def best_model_path(self) -> Path:
@@ -44,6 +53,10 @@ class Config:
     @property
     def accuracy_plot_path(self) -> Path:
         return self.project_root / "outputs" / "plots" / "accuracy_curve.png"
+
+    @property
+    def f1_plot_path(self) -> Path:
+        return self.project_root / "outputs" / "plots" / "f1_curve.png"
 
     @property
     def confusion_matrix_plot_path(self) -> Path:

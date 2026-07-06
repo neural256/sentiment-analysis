@@ -93,6 +93,7 @@ def fit_model(
     num_epochs: int,
     grad_clip: float,
     best_model_path,
+    patience: int = 8,
 ) -> Dict[str, List[float]]:
     history = {
         "train_loss": [],
@@ -104,6 +105,7 @@ def fit_model(
     }
 
     best_val_macro_f1 = -1.0
+    epochs_without_improvement = 0
 
     for epoch in range(1, num_epochs + 1):
         train_loss, train_acc, train_f1 = train_one_epoch(
@@ -141,8 +143,18 @@ def fit_model(
 
         if val_f1 > best_val_macro_f1:
             best_val_macro_f1 = val_f1
+            epochs_without_improvement = 0
             best_model_path.parent.mkdir(parents=True, exist_ok=True)
             torch.save(model.state_dict(), best_model_path)
             print(f"  Saved new best model with validation macro-F1 = {val_f1:.4f}")
+        else:
+            epochs_without_improvement += 1
+            if epochs_without_improvement >= patience:
+                print(
+                    f"  Early stopping at epoch {epoch} "
+                    f"(no improvement for {patience} epochs). "
+                    f"Best val macro-F1 = {best_val_macro_f1:.4f}"
+                )
+                break
 
     return history

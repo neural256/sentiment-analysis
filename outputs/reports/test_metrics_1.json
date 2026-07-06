@@ -1,0 +1,25 @@
+{
+    "loss": 0.8827121186126126,
+    "accuracy": 0.773224043715847,
+    "macro_precision": 0.7047120342724633,
+    "macro_recall": 0.7218115466424303,
+    "macro_f1": 0.7126274173332997,
+    "confusion_matrix": [
+        [
+            1158,
+            129,
+            90
+        ],
+        [
+            113,
+            298,
+            54
+        ],
+        [
+            52,
+            60,
+            242
+        ]
+    ],
+    "classification_report_text": "              precision    recall  f1-score   support\n\n    negative       0.88      0.84      0.86      1377\n     neutral       0.61      0.64      0.63       465\n    positive       0.63      0.68      0.65       354\n\n    accuracy                           0.77      2196\n   macro avg       0.70      0.72      0.71      2196\nweighted avg       0.78      0.77      0.78      2196\n"
+}

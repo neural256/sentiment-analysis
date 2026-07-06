@@ -30,7 +30,6 @@ class Vocabulary:
     def __init__(self, max_size: int = 10000, min_freq: int = 1):
         self.max_size = max_size
         self.min_freq = min_freq
-
         self.token_to_idx = {
             PAD_TOKEN: 0,
             UNK_TOKEN: 1,
